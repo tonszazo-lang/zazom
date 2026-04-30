@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStore } from '@/store/StoreContext'
 import { ShoppingCart, Package, FileText, BarChart3, AlertCircle } from 'lucide-react'
+import { LiveSummary } from './LiveSummary'
 
 export function Dashboard() {
   const { cart, dailyReports, products, setSelectedTab, invoices } = useStore()
@@ -19,6 +20,11 @@ export function Dashboard() {
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">لوحة التحكم</h1>
           <p className="text-slate-400">مرحباً بك في نظام إدارة نقاط البيع</p>
+        </div>
+
+        {/* Live Summary */}
+        <div className="mb-8">
+          <LiveSummary />
         </div>
 
         {/* Quick Actions */}

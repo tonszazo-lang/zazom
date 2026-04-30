@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useStore } from '@/store/StoreContext'
+import { useNotification } from '@/store/NotificationContext'
 import { Moon, Sun, Menu, X } from 'lucide-react'
 import { Dashboard } from './Dashboard'
 import { POS } from './POS'
@@ -9,6 +10,8 @@ import { Reports } from './Reports'
 import { Purchases } from './Purchases'
 import { Production } from './Production'
 import { Consumption } from './Consumption'
+import { SmartCalculator } from './SmartCalculator'
+import { NotificationCenter } from './NotificationCenter'
 
 export function App() {
   const { selectedTab, setSelectedTab } = useStore()
@@ -18,6 +21,7 @@ export function App() {
   const navItems = [
     { id: 'dashboard', label: 'لوحة التحكم', icon: '📊' },
     { id: 'pos', label: 'نقطة البيع', icon: '🛒' },
+    { id: 'calculator', label: 'الحاسبة', icon: '🧮' },
     { id: 'inventory', label: 'المخزون', icon: '📦' },
     { id: 'purchases', label: 'المشتريات', icon: '🏪' },
     { id: 'production', label: 'الإنتاج', icon: '🏭' },
@@ -33,6 +37,7 @@ export function App() {
 
   return (
     <div className={isDark ? 'dark' : ''}>
+      <NotificationCenter />
       {/* Header */}
       <header className="bg-gradient-to-r from-slate-900 to-slate-800 border-b border-white/10 sticky top-0 z-40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -103,6 +108,7 @@ export function App() {
       <main className="min-h-[calc(100vh-80px)]">
         {selectedTab === 'dashboard' && <Dashboard />}
         {selectedTab === 'pos' && <POS />}
+        {selectedTab === 'calculator' && <SmartCalculator />}
         {selectedTab === 'inventory' && <Inventory />}
         {selectedTab === 'purchases' && <Purchases />}
         {selectedTab === 'production' && <Production />}

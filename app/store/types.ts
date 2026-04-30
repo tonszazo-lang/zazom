@@ -68,6 +68,14 @@ export interface DailyReport {
   salesCount: number
 }
 
+export interface Notification {
+  id: string
+  type: 'success' | 'error' | 'warning' | 'info'
+  message: string
+  timestamp: number
+  duration?: number
+}
+
 export interface StoreState {
   products: Product[]
   cart: CartItem[]

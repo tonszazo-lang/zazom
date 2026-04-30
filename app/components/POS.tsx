@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useStore } from '@/store/StoreContext'
+import { useNotification } from '@/store/NotificationContext'
 import { Search, Trash2, Plus, Minus, Check, X } from 'lucide-react'
 
 export function POS() {
   const { products, cart, addToCart, removeFromCart, updateCartItem, createInvoice } = useStore()
+  const { addNotification } = useNotification()
   const [searchTerm, setSearchTerm] = useState('')
   const [taxPercent, setTaxPercent] = useState(14)
   const [paymentMethod, setPaymentMethod] = useState('نقد')
@@ -18,8 +20,12 @@ export function POS() {
   const total = subtotal + tax
 
   const handleCheckout = () => {
-    if (cart.length === 0) return
+    if (cart.length === 0) {
+      addNotification('السلة فارغة! أضف منتجات أولاً', 'warning')
+      return
+    }
     createInvoice(cart, tax, paymentMethod, customerName)
+    addNotification(`تم إنشاء فاتورة جديدة بقيمة ${total.toFixed(2)} ريال`, 'success')
     setCustomerName('')
     setPaymentMethod('نقد')
   }
