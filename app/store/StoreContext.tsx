@@ -10,6 +10,10 @@ interface StoreContextType {
   consumptions: Consumption[]
   dailyReports: DailyReport[]
   selectedTab: string
+  currency: typeof DEFAULT_CURRENCY
+  
+  // System actions
+  resetAllData: () => void
   
   // Product actions
   addProduct: (product: Product) => void
@@ -45,13 +49,14 @@ interface StoreContextType {
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined)
 
-const DEFAULT_PRODUCTS: Product[] = [
-  { id: '1', name: 'ماء معدني 500مل', price: 3, category: 'مشروبات', stock: 50, barcode: '001' },
-  { id: '2', name: 'عصير برتقال 1لتر', price: 12, category: 'مشروبات', stock: 30, barcode: '002' },
-  { id: '3', name: 'شيبس حار 50جم', price: 5, category: 'وجبات خفيفة', stock: 100, barcode: '003' },
-  { id: '4', name: 'شوكولاتة 100جم', price: 8, category: 'حلويات', stock: 60, barcode: '004' },
-  { id: '5', name: 'خبز أبيض', price: 2.5, category: 'خبز', stock: 80, barcode: '005' },
-]
+const DEFAULT_PRODUCTS: Product[] = []
+
+const DEFAULT_CURRENCY = {
+  code: 'EGP' as const,
+  symbol: 'ج.م',
+  name: 'الجنيه المصري',
+  taxRate: 0.14 // 14% ضريبة القيمة المضافة
+}
 
 export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<Product[]>(DEFAULT_PRODUCTS)
@@ -293,6 +298,22 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     setConsumptions(consumptions.filter(c => c.id !== consumptionId))
   }
 
+  const resetAllData = () => {
+    setProducts([])
+    setCart([])
+    setInvoices([])
+    setPurchases([])
+    setProductions([])
+    setConsumptions([])
+    setDailyReports([])
+    localStorage.removeItem('pos_products')
+    localStorage.removeItem('pos_invoices')
+    localStorage.removeItem('pos_purchases')
+    localStorage.removeItem('pos_productions')
+    localStorage.removeItem('pos_consumptions')
+    localStorage.removeItem('pos_reports')
+  }
+
   const value: StoreContextType = {
     products,
     cart,
@@ -302,6 +323,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     consumptions,
     dailyReports,
     selectedTab,
+    currency: DEFAULT_CURRENCY,
+    resetAllData,
     addProduct,
     updateProduct,
     deleteProduct,

@@ -76,6 +76,13 @@ export interface Notification {
   duration?: number
 }
 
+export interface CurrencyConfig {
+  code: 'EGP' | 'USD' | 'SAR'
+  symbol: string
+  name: string
+  taxRate: number
+}
+
 export interface StoreState {
   products: Product[]
   cart: CartItem[]
@@ -85,4 +92,5 @@ export interface StoreState {
   consumptions: Consumption[]
   dailyReports: DailyReport[]
   selectedTab: string
+  currency: CurrencyConfig
 }

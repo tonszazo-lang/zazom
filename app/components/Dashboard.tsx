@@ -4,7 +4,7 @@ import { ShoppingCart, Package, FileText, BarChart3, AlertCircle } from 'lucide-
 import { LiveSummary } from './LiveSummary'
 
 export function Dashboard() {
-  const { cart, dailyReports, products, setSelectedTab, invoices } = useStore()
+  const { cart, dailyReports, products, setSelectedTab, invoices, currency } = useStore()
 
   const today = new Date().toISOString().split('T')[0]
   const todayReport = dailyReports.find(r => r.date === today)

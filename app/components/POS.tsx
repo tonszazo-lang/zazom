@@ -4,10 +4,10 @@ import { useNotification } from '@/store/NotificationContext'
 import { Search, Trash2, Plus, Minus, Check, X } from 'lucide-react'
 
 export function POS() {
-  const { products, cart, addToCart, removeFromCart, updateCartItem, createInvoice } = useStore()
+  const { products, cart, addToCart, removeFromCart, updateCartItem, createInvoice, currency } = useStore()
   const { addNotification } = useNotification()
   const [searchTerm, setSearchTerm] = useState('')
-  const [taxPercent, setTaxPercent] = useState(14)
+  const [taxPercent, setTaxPercent] = useState(currency.taxRate * 100)
   const [paymentMethod, setPaymentMethod] = useState('نقد')
   const [customerName, setCustomerName] = useState('')
 
@@ -25,7 +25,7 @@ export function POS() {
       return
     }
     createInvoice(cart, tax, paymentMethod, customerName)
-    addNotification(`تم إنشاء فاتورة جديدة بقيمة ${total.toFixed(2)} ريال`, 'success')
+    addNotification(`تم إنشاء فاتورة جديدة بقيمة ${total.toFixed(2)} ${currency.symbol}`, 'success')
     setCustomerName('')
     setPaymentMethod('نقد')
   }

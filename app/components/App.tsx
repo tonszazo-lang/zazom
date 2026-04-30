@@ -12,6 +12,8 @@ import { Production } from './Production'
 import { Consumption } from './Consumption'
 import { SmartCalculator } from './SmartCalculator'
 import { NotificationCenter } from './NotificationCenter'
+import { ExcelManager } from './ExcelManager'
+import { Settings } from './Settings'
 
 export function App() {
   const { selectedTab, setSelectedTab } = useStore()
@@ -27,7 +29,9 @@ export function App() {
     { id: 'production', label: 'الإنتاج', icon: '🏭' },
     { id: 'consumption', label: 'الاستهلاك', icon: '🗑️' },
     { id: 'invoices', label: 'الفواتير', icon: '📄' },
+    { id: 'excel', label: 'اكسل', icon: '📊' },
     { id: 'reports', label: 'التقارير', icon: '📈' },
+    { id: 'settings', label: 'الإعدادات', icon: '⚙️' },
   ]
 
   const handleNavClick = (tabId: string) => {
@@ -114,7 +118,9 @@ export function App() {
         {selectedTab === 'production' && <Production />}
         {selectedTab === 'consumption' && <Consumption />}
         {selectedTab === 'invoices' && <Invoices />}
+        {selectedTab === 'excel' && <ExcelManager />}
         {selectedTab === 'reports' && <Reports />}
+        {selectedTab === 'settings' && <Settings />}
       </main>
 
       {/* Footer */}
