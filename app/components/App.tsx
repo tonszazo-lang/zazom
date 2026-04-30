@@ -6,6 +6,9 @@ import { POS } from './POS'
 import { Inventory } from './Inventory'
 import { Invoices } from './Invoices'
 import { Reports } from './Reports'
+import { Purchases } from './Purchases'
+import { Production } from './Production'
+import { Consumption } from './Consumption'
 
 export function App() {
   const { selectedTab, setSelectedTab } = useStore()
@@ -16,6 +19,9 @@ export function App() {
     { id: 'dashboard', label: 'لوحة التحكم', icon: '📊' },
     { id: 'pos', label: 'نقطة البيع', icon: '🛒' },
     { id: 'inventory', label: 'المخزون', icon: '📦' },
+    { id: 'purchases', label: 'المشتريات', icon: '🏪' },
+    { id: 'production', label: 'الإنتاج', icon: '🏭' },
+    { id: 'consumption', label: 'الاستهلاك', icon: '🗑️' },
     { id: 'invoices', label: 'الفواتير', icon: '📄' },
     { id: 'reports', label: 'التقارير', icon: '📈' },
   ]
@@ -98,6 +104,9 @@ export function App() {
         {selectedTab === 'dashboard' && <Dashboard />}
         {selectedTab === 'pos' && <POS />}
         {selectedTab === 'inventory' && <Inventory />}
+        {selectedTab === 'purchases' && <Purchases />}
+        {selectedTab === 'production' && <Production />}
+        {selectedTab === 'consumption' && <Consumption />}
         {selectedTab === 'invoices' && <Invoices />}
         {selectedTab === 'reports' && <Reports />}
       </main>
