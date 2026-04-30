@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" suppressHydrationWarning>
-      <body className={`${geist.className} font-sans antialiased bg-slate-900`}>
+      <body className={`${geist.className} font-sans antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
