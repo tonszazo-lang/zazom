@@ -1,44 +1,18 @@
-import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App' // استدعاء ملف App.jsx الذي سيحتوي على صفحتك الرئيسية
+import { Analytics } from '@vercel/analytics/react' // تعديل الاستيراد ليعمل مع React
 import './globals.css'
 
-const geist = Geist({ subsets: ["latin"] });
+// استهداف عنصر الـ root الموجود في ملف index.html
+const rootElement = document.getElementById('root');
 
-export const metadata: Metadata = {
-  title: 'نظام POS - إدارة نقاط البيع',
-  description: 'نظام شامل لإدارة نقاط البيع والفواتير والمخزون',
-  generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
-}
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang="ar" suppressHydrationWarning>
-      <body className={`${geist.className} font-sans antialiased`}>
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
-      </body>
-    </html>
-  )
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <App />
+      {/* تشغيل تحليلات فيرسل في وضع الإنتاج فقط */}
+      <Analytics />
+    </React.StrictMode>
+  );
 }
